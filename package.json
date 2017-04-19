@@ -2,7 +2,7 @@
   "name": "io-ts-reporters",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check",
     "compile": "rm -rf ./target/* && tsc",
