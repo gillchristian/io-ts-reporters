@@ -10,7 +10,7 @@
     "prepublish": "yarn run compile && yarn run lint"
   },
   "files": [
-    "target"
+    "target/src"
   ],
   "dependencies": {
     "fp-ts": "^0.2.1",
