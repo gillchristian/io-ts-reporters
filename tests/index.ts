@@ -13,7 +13,7 @@ const Person = t.interface({
 });
 type IPerson = t.TypeOf<typeof Person>;
 
-const logAndReport = (value: any) => console.log(reporter(value));
+const logAndReport = (value: t.Validation<any>) => console.log(reporter(value));
 
 const person1: IPerson = {
     name: 'Giulio',
