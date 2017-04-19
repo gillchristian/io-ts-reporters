@@ -9,6 +9,9 @@
     "test": "yarn run compile && yarn run lint && node ./target/tests/index.js",
     "prepublish": "yarn run compile && yarn run lint"
   },
+  "files": [
+      "./target/src"
+  ],
   "dependencies": {
     "fp-ts": "^0.2.1",
     "io-ts": "^0.3.0",
