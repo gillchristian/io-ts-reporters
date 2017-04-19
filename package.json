@@ -1,0 +1,16 @@
+{
+  "name": "io-ts-reporters",
+  "main": "./src/index.ts",
+  "version": "0.0.2",
+  "scripts": {
+    "lint": "tslint --project tsconfig.json --type-check",
+    "compile": "rm -rf ./target/* && tsc",
+    "test": "yarn run compile && yarn run lint && node ./target/tests/index.js"
+  },
+  "dependencies": {
+    "fp-ts": "^0.2.1",
+    "io-ts": "^0.3.0",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2"
+  }
+}

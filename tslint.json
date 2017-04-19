@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "no-unused-variable": true,
+        "strict-boolean-expressions": true,
+        "semicolon": [true, "always"],
+        "quotemark": [true, "single"],
+        "trailing-comma": [true, { "multiline": "always" }],
+        "max-line-length": [true, 100],
+        "eofline": true
+    }
+}
