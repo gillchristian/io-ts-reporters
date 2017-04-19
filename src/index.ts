@@ -1,6 +1,12 @@
 import * as t from 'io-ts';
 import * as fp from 'fp-ts';
 
+// These are only needed for emitting TypeScript declarations
+/* tslint:disable no-unused-variable */
+import { None, Some } from 'fp-ts/lib/Option';
+import { Left, Right } from 'fp-ts/lib/Either';
+/* tslint:enable no-unused-variable */
+
 export const formatValidationError = (error: t.ValidationError) => {
     const path = error.context
         .map(c => c.key)
@@ -21,7 +27,7 @@ export const formatValidationError = (error: t.ValidationError) => {
     });
 };
 
-export const reporter = <T>(validation: t.Validation<T>) => (
+export const reporter = (validation: t.Validation<any>) => (
     validation.fold(
         errors => (
             fp.array.catOptions(
