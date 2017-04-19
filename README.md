@@ -2,6 +2,10 @@
 
 [Error reporters](https://github.com/gcanti/io-ts#error-reporters) for io-ts.
 
+Currently this package only includes one reporter. The output is an array of strings in the format of:
+
+`Expected type of ${path} to be ${expectedType}, but got ${actualType}: ${actualValue}.`
+
 ## Installation
 
 ``` bash
