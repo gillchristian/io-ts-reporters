@@ -2,7 +2,7 @@
   "name": "io-ts-reporters",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.ts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "lint": "tslint --project tsconfig.json --type-check",
     "compile": "rm -rf ./target/* && tsc",
@@ -10,7 +10,7 @@
     "prepublish": "yarn run compile && yarn run lint"
   },
   "files": [
-      "./target/src"
+    "./target/src"
   ],
   "dependencies": {
     "fp-ts": "^0.2.1",
