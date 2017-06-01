@@ -7,6 +7,12 @@ import { None, Some } from 'fp-ts/lib/Option';
 import { Left, Right } from 'fp-ts/lib/Either';
 /* tslint:enable no-unused-variable */
 
+const jsToString = (value: any) => (
+    value === undefined
+        ? 'undefined'
+        : JSON.stringify(value)
+);
+
 export const formatValidationError = (error: t.ValidationError) => {
     const path = error.context
         .map(c => c.key)
@@ -21,8 +27,11 @@ export const formatValidationError = (error: t.ValidationError) => {
     return maybeErrorContext.map(errorContext => {
         const expectedType = errorContext.type.name;
         return (
-            `Expected type of ${path} to be ${expectedType}, `
-            + `but got ${typeof error.value}: ${error.value}.`
+            // tslint:disable-next-line max-line-length
+            // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
+            `Expecting ${expectedType}`
+            + (path === '' ? '' : ` at ${path}`)
+            + ` but instead got: ${jsToString(error.value)}.`
         );
     });
 };
