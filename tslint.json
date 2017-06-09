@@ -6,6 +6,11 @@
         "quotemark": [true, "single"],
         "trailing-comma": [true, { "multiline": "always" }],
         "max-line-length": [true, 100],
-        "eofline": true
+        "eofline": true,
+        "indent": [true, "spaces"],
+        "ordered-imports": [true],
+        "no-inferrable-types": [true, "ignore-properties"],
+        "no-switch-case-fall-through": true,
+        "arrow-return-shorthand": [true, "multiline"]
     }
 }

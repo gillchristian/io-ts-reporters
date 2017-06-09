@@ -3,8 +3,8 @@ import * as t from 'io-ts';
 
 // These are only needed for emitting TypeScript declarations
 /* tslint:disable no-unused-variable */
-import { None, Some } from 'fp-ts/lib/Option';
 import { Left, Right } from 'fp-ts/lib/Either';
+import { None, Some } from 'fp-ts/lib/Option';
 /* tslint:enable no-unused-variable */
 
 const jsToString = (value: any) => (
