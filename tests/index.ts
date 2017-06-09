@@ -13,10 +13,7 @@ const Person = t.interface({
 });
 type IPerson = t.TypeOf<typeof Person>;
 
-const logAndReport = (value: t.Validation<any>) => console.log({
-    value,
-    reporterResult: reporter(value),
-});
+const logAndReport = (value: t.Validation<any>) => console.log(reporter(value));
 
 const person1: IPerson = {
     name: 'Giulio',
@@ -31,9 +28,3 @@ const person2: any = {
     children: [{gender: 'Whatever'}],
 };
 logAndReport(t.validate(person2, Person));
-
-
-const NumberGroups = t.array(t.array(t.number));
-
-logAndReport(t.validate({}, NumberGroups));
-logAndReport(t.validate([[{}]], NumberGroups));
