@@ -1,5 +1,5 @@
+import * as array from 'fp-ts/lib/Array';
 import * as t from 'io-ts';
-import * as fp from 'fp-ts';
 
 // These are only needed for emitting TypeScript declarations
 /* tslint:disable no-unused-variable */
@@ -22,7 +22,7 @@ export const formatValidationError = (error: t.ValidationError) => {
         .join('.');
 
     // The actual error is last in context
-    const maybeErrorContext = fp.array.last(error.context);
+    const maybeErrorContext = array.last(error.context);
 
     return maybeErrorContext.map(errorContext => {
         const expectedType = errorContext.type.name;
@@ -39,7 +39,7 @@ export const formatValidationError = (error: t.ValidationError) => {
 export const reporter = (validation: t.Validation<any>) => (
     validation.fold(
         errors => (
-            fp.array.catOptions(
+            array.catOptions(
                 errors.map(formatValidationError),
             )
         ),
