@@ -7,7 +7,7 @@
     "lint": "tslint --project tsconfig.json --type-check",
     "compile": "rm -rf ./target/* && tsc",
     "test": "npm run compile && npm run lint && node ./target/tests/index.js",
-    "prepublish": "npm run compile && npm run lint"
+    "prepublishOnly": "npm run compile && npm run lint"
   },
   "files": [
     "target/src"
