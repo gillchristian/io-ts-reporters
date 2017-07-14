@@ -22,7 +22,7 @@ balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
-brace-expansion@^1.0.0, brace-expansion@^1.1.7:
+brace-expansion@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.7.tgz#3effc3c50e000531fb720eaff80f0ae8ef23cf59"
   dependencies:
@@ -65,9 +65,9 @@ esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
 
-fp-ts@0.3.1, fp-ts@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-0.3.1.tgz#4c49ab65084918ec01997af21e18caab21f72f21"
+fp-ts@0.4.0, fp-ts@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-0.4.0.tgz#5ee9ca4e9e4aa4ad7ac0ac596790c8ac0601757d"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -105,23 +105,17 @@ inherits@2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
-io-ts@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-0.4.0.tgz#f95133cd95b9e08b7bc04991bdce3180a10b189b"
+io-ts@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-0.6.0.tgz#ff974fb668cafd29949cdecdda3cbcfffb69e75c"
   dependencies:
-    fp-ts "^0.3.0"
+    fp-ts "^0.4.0"
 
 js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-minimatch@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
-  dependencies:
-    brace-expansion "^1.0.0"
-
-minimatch@^3.0.4:
+minimatch@^3.0.2, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
@@ -184,9 +178,9 @@ tsutils@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.4.0.tgz#ad4ce6dba0e5a3edbddf8626b7ca040782189fea"
 
-typescript@2.3.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
+typescript@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.1.tgz#c3ccb16ddaa0b2314de031e7e6fee89e5ba346bc"
 
 wrappy@1:
   version "1.0.2"
