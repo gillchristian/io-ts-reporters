@@ -13,8 +13,8 @@
     "target/src"
   ],
   "dependencies": {
-    "fp-ts": "^0.4.3",
-    "io-ts": "^0.6.1"
+    "fp-ts": "^0.5.2",
+    "io-ts": "^0.7.0"
   },
   "devDependencies": {
     "tslint": "5.5.0",
