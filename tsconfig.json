@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": true,
+        "strict": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
         // We can't use these for now because TS doesn't support conditional
