@@ -13,11 +13,11 @@
     "target/src"
   ],
   "dependencies": {
-    "fp-ts": "^0.5.2",
-    "io-ts": "^0.7.0"
+    "fp-ts": "^0.6.2",
+    "io-ts": "^0.8.2"
   },
   "devDependencies": {
     "tslint": "5.5.0",
-    "typescript": "2.4.2"
+    "typescript": "^2.6.1"
   }
 }
