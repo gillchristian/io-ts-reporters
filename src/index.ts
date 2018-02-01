@@ -1,5 +1,5 @@
 import * as array from 'fp-ts/lib/Array';
-import * as t from 'io-ts';
+import { mixed, Validation, ValidationError } from 'io-ts';
 
 // These are only needed for emitting TypeScript declarations
 /* tslint:disable no-unused-variable */
@@ -7,9 +7,9 @@ import { Left, Right } from 'fp-ts/lib/Either';
 import { None, Some } from 'fp-ts/lib/Option';
 /* tslint:enable no-unused-variable */
 
-const jsToString = (value: {}) => (value === undefined ? 'undefined' : JSON.stringify(value));
+const jsToString = (value: mixed) => (value === undefined ? 'undefined' : JSON.stringify(value));
 
-export const formatValidationError = (error: t.ValidationError) => {
+export const formatValidationError = (error: ValidationError) => {
     const path = error.context
         .map(c => c.key)
         // The context entry with an empty key is the original type ("default
@@ -32,6 +32,6 @@ export const formatValidationError = (error: t.ValidationError) => {
     });
 };
 
-export const reporter = (validation: t.Validation<{}>) => (
+export const reporter = (validation: Validation<mixed>) => (
     validation.fold(errors => array.catOptions(errors.map(formatValidationError)), () => [])
 );
