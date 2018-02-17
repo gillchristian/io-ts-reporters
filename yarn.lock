@@ -87,9 +87,9 @@ esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
 
-fp-ts@^0.6.0, fp-ts@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-0.6.2.tgz#2a0ca882af217c3e8f1bc69f6abda3a017233a72"
+fp-ts@^1.0.0, fp-ts@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-1.0.1.tgz#4d0fc9ab24c6c6cd0381e5eefc684a6eb8321b41"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -127,11 +127,11 @@ inherits@2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
-io-ts@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-0.8.2.tgz#cf87ca011f384c662d7ef1bb9657c069a22de7d4"
+io-ts@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-1.0.2.tgz#3e463ba2bfd2daaa4bce615a3fa99b6d8ba7d5ff"
   dependencies:
-    fp-ts "^0.6.0"
+    fp-ts "^1.0.0"
 
 js-tokens@^3.0.0:
   version "3.0.2"

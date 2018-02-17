@@ -7,7 +7,7 @@ import { Left, Right } from 'fp-ts/lib/Either';
 import { None, Some } from 'fp-ts/lib/Option';
 /* tslint:enable no-unused-variable */
 
-const jsToString = (value: {}) => (value === undefined ? 'undefined' : JSON.stringify(value));
+const jsToString = (value: t.mixed) => (value === undefined ? 'undefined' : JSON.stringify(value));
 
 export const formatValidationError = (error: t.ValidationError) => {
     const path = error.context

@@ -29,15 +29,15 @@ const person1: IPerson = {
     gender: 'Male',
     children: [{ gender: 'Female' }],
 };
-logAndReport(t.validate(person1, Person));
+logAndReport(Person.decode(person1));
 
 const person2: {} = {
     name: 'Giulio',
     children: [{ gender: 'Whatever' }],
 };
-logAndReport(t.validate(person2, Person));
+logAndReport(Person.decode(person2));
 
 const NumberGroups = t.array(t.array(t.number));
 
-logAndReport(t.validate({}, NumberGroups));
-logAndReport(t.validate([[{}]], NumberGroups));
+logAndReport(NumberGroups.decode({}));
+logAndReport(NumberGroups.decode([[{}]]));
