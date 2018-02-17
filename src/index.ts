@@ -32,6 +32,6 @@ export const formatValidationError = (error: t.ValidationError) => {
     });
 };
 
-export const reporter = (validation: t.Validation<{}>) => (
+export const reporter = <T>(validation: t.Validation<T>) => (
     validation.fold(errors => array.catOptions(errors.map(formatValidationError)), () => [])
 );
