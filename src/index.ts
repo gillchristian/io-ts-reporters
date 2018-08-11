@@ -18,7 +18,10 @@ export const formatValidationError = (error: t.ValidationError) => {
         .join('.');
 
     // The actual error is last in context
-    const maybeErrorContext = array.last(error.context);
+    const maybeErrorContext = array.last(
+        // https://github.com/gcanti/fp-ts/pull/544/files
+        error.context as Array<t.ContextEntry>
+    );
 
     return maybeErrorContext.map(errorContext => {
         const expectedType = errorContext.type.name;
