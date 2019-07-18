@@ -2,7 +2,7 @@
   "name": "io-ts-reporters",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.ts",
-  "version": "0.0.21",
+  "version": "1.0.0",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "compile": "rm -rf ./target/* && tsc",
@@ -13,11 +13,11 @@
     "target/src"
   ],
   "dependencies": {
-    "fp-ts": "^1.0.1",
-    "io-ts": "^1.0.2"
+    "fp-ts": "^2.0.2",
+    "io-ts": "^2.0.0"
   },
   "devDependencies": {
     "tslint": "^5.8.0",
-    "typescript": "^2.7.2"
+    "typescript": "^3.5.3"
   }
 }

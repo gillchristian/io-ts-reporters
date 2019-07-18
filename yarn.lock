@@ -87,9 +87,10 @@ esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
 
-fp-ts@^1.0.0, fp-ts@^1.0.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-1.7.1.tgz#b1ff2a39f345a7aa31bb53f26edab1ac3fc70b75"
+fp-ts@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.0.2.tgz#8f27d76e24097c3ab4e766ea7526872d6ba0555d"
+  integrity sha512-ZCeu5MkqNDBWe1ewjZQ9Q9JNcPKEKXpitYzJ4ygCWpfJ3skW3imZ45EqsZd+9N8rkBvmsb64ToZTI2xXNO9IcQ==
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -127,11 +128,10 @@ inherits@2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
-io-ts@^1.0.2:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-1.3.0.tgz#72a5e7dbbb650b9c26030bac0c22d9b18c321f54"
-  dependencies:
-    fp-ts "^1.0.0"
+io-ts@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.0.0.tgz#560f8ddf92cce7ea73820cedab7b31044e464d1e"
+  integrity sha512-6i8PKyNR/dvEbUU9uE+v4iVFU7l674ZEGQsh92y6xEZF/rj46fXbPy+uPPXJEsCP0J0X3UpzXAxp04K4HR2jVw==
 
 js-tokens@^3.0.0:
   version "3.0.2"
@@ -209,9 +209,10 @@ tsutils@^2.12.1:
   dependencies:
     tslib "^1.7.1"
 
-typescript@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
+typescript@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
+  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
 
 wrappy@1:
   version "1.0.2"

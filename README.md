@@ -6,9 +6,16 @@ Currently this package only includes one reporter. The output is an array of str
 
 `Expected type of ${path} to be ${expectedType}, but got ${actualType}: ${actualValue}.`
 
+## TypeScript compatibility
+
+| io-ts-reporters version | required typescript version |
+| ----------------------- | --------------------------- |
+| 1.0.0                   | 3.5+                        |
+| <= 0.0.21               | 2.7+                        |
+
 ## Installation
 
-``` bash
+```bash
 yarn add io-ts-reporters
 ```
 
@@ -18,7 +25,7 @@ See [the tests](./tests/index.ts).
 
 ## Testing
 
-``` bash
+```bash
 yarn
 yarn run test
 ```
