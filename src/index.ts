@@ -1,12 +1,8 @@
 import * as array from 'fp-ts/lib/Array';
+import { fold } from 'fp-ts/lib/Either';
+import { map } from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as t from 'io-ts';
-
-// These are only needed for emitting TypeScript declarations
-/* tslint:disable no-unused-variable */
-import { fold, Left, Right } from 'fp-ts/lib/Either';
-import { map, None, Some } from 'fp-ts/lib/Option';
-/* tslint:enable no-unused-variable */
 
 const jsToString = (value: t.mixed) => (value === undefined ? 'undefined' : JSON.stringify(value));
 
