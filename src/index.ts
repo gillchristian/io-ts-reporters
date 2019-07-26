@@ -5,7 +5,7 @@ import * as t from 'io-ts';
 // These are only needed for emitting TypeScript declarations
 /* tslint:disable no-unused-variable */
 import { fold, Left, Right } from 'fp-ts/lib/Either';
-import { None, option, Some } from 'fp-ts/lib/Option';
+import { map, None, Some } from 'fp-ts/lib/Option';
 /* tslint:enable no-unused-variable */
 
 const jsToString = (value: t.mixed) => (value === undefined ? 'undefined' : JSON.stringify(value));
@@ -24,7 +24,7 @@ export const formatValidationError = (error: t.ValidationError) => {
         error.context as Array<t.ContextEntry>
     );
 
-    return option.map(maybeErrorContext, errorContext => {
+    return pipe(maybeErrorContext, map(errorContext => {
         const expectedType = errorContext.type.name;
         return (
             // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
@@ -33,7 +33,7 @@ export const formatValidationError = (error: t.ValidationError) => {
                 + (path === '' ? '' : ` at ${path}`)
                 + ` but instead got: ${jsToString(error.value)}.`
         );
-    })
+    }))
 };
 
 export const reporter = <T>(validation: t.Validation<T>) => (
