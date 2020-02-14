@@ -15,8 +15,8 @@
         "outDir": "./target/",
         "declaration": true
     },
-    "files": [
-        "./src/index.ts",
-        "./tests/index.ts"
+    "include": [
+        "./src/*.ts",
+        "./tests/*.ts"
     ]
 }
