@@ -4,7 +4,8 @@
   "typings": "./target/src/index.d.ts",
   "version": "1.0.0",
   "scripts": {
-    "lint": "tslint --project tsconfig.json",
+    "lint": "npm run typecheck && tslint --project tsconfig.json",
+    "typecheck": "tsc --noEmit",
     "compile": "rm -rf ./target/* && tsc",
     "test": "npm run compile && npm run lint && node ./target/tests/index.js",
     "prepublishOnly": "npm run compile && npm run lint"
