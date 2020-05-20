@@ -12,7 +12,8 @@
     "prepublishOnly": "npm run compile && npm run lint"
   },
   "files": [
-    "target/src"
+    "target/src",
+    "src"
   ],
   "dependencies": {
     "fp-ts": "^2.0.2",
