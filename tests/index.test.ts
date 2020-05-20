@@ -1,6 +1,6 @@
 import * as iots from 'io-ts';
-import * as test from 'tape';
 import {withMessage} from 'io-ts-types/lib/withMessage';
+import * as test from 'tape';
 
 import { reporter } from '../src/';
 
