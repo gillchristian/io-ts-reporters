@@ -1,5 +1,6 @@
 import * as iots from 'io-ts';
 import * as test from 'tape';
+import {withMessage} from 'io-ts-types/lib/withMessage';
 
 import { reporter } from '../src/';
 
@@ -60,4 +61,31 @@ test('formats a complex type correctly', (t) => {
         'Expecting "Female" at children.0.gender.1 but instead got: "Whatever".'
     ]);
     t.end();
+});
+
+test('formats branded types correctly', (t) => {
+  interface PositiveBrand {
+    readonly Positive: unique symbol;
+  }
+
+  const Positive = iots.brand(
+    iots.number,
+    (n): n is iots.Branded<number, PositiveBrand> => n >= 0,
+    'Positive'
+  );
+
+  t.deepEqual(reporter(Positive.decode(-1)), [
+    'Expecting Positive but instead got: -1.'
+  ]);
+
+  const PatronizingPositive = withMessage(
+    Positive,
+    (_i) => `Don't be so negative!`
+  );
+
+  t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
+    'Expecting Positive but instead got: -1 (message: "Don\'t be so negative!")'
+  ]);
+
+  t.end();
 });
