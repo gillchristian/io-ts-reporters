@@ -1,7 +1,7 @@
 import * as iots from 'io-ts';
 import * as test from 'tape';
 
-import { reporter } from '../src/';
+import {reporter} from '../src';
 
 test('reports an empty array when the result doesn’t contain errors', (t) => {
     const PrimitiveType = iots.string;
@@ -23,7 +23,9 @@ test('formats array items', (t) => {
     const NumberGroups = iots.array(iots.array(iots.number));
     const result = NumberGroups.decode({});
 
-    t.deepEqual(reporter(result), ['Expecting Array<Array<number>> but instead got: {}.']);
+    t.deepEqual(reporter(result), [
+        'Expecting Array<Array<number>> but instead got: {}.'
+    ]);
     t.end();
 });
 
@@ -31,7 +33,9 @@ test('formats nested array item mismatches correctly', (t) => {
     const NumberGroups = iots.array(iots.array(iots.number));
     const result = NumberGroups.decode([[{}]]);
 
-    t.deepEqual(reporter(result), ['Expecting number at 0.0 but instead got: {}.']);
+    t.deepEqual(reporter(result), [
+        'Expecting number at 0.0 but instead got: {}.'
+    ]);
     t.end();
 });
 
@@ -43,13 +47,13 @@ test('formats a complex type correctly', (t) => {
         gender: Gender,
         children: iots.array(
             iots.interface({
-                gender: Gender,
+                gender: Gender
             })
         )
     });
     const result = Person.decode({
         name: 'Giulio',
-        children: [{ gender: 'Whatever' }]
+        children: [{gender: 'Whatever'}]
     });
 
     t.deepEqual(reporter(result), [
