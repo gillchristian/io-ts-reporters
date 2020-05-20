@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "compile": "rm -rf ./target/* && tsc",
     "test": "npm run lint && npm run test:unit",
-    "test:unit": "tape -r ts-node/register/transpile-only 'tests/**/*.test.ts' | tap-min",
+    "test:unit": "ava",
     "prepublishOnly": "npm run compile && npm run lint"
   },
   "files": [
@@ -24,5 +24,16 @@
     "ts-node": "^8.6.2",
     "tslint": "^5.8.0",
     "typescript": "^3.5.3"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "files": [
+      "tests/**/*.test.ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   }
 }
