@@ -84,7 +84,7 @@ test('formats branded types correctly', (t) => {
     );
 
     t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
-        'Expecting Positive but instead got: -1 (message: "Don\'t be so negative!")'
+        'Expecting Positive but instead got: -1 (Don\'t be so negative!)'
     ]);
 
     t.end();
