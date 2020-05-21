@@ -24,16 +24,5 @@
     "ts-node": "^8.6.2",
     "tslint": "^5.8.0",
     "typescript": "^3.5.3"
-  },
-  "ava": {
-    "extensions": [
-      "ts"
-    ],
-    "files": [
-      "tests/**/*.test.ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
   }
 }
