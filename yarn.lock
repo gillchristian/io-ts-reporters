@@ -83,9 +83,9 @@
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
 "@types/node@*":
-  version "14.0.4"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.0.4.tgz#43a63fc5edce226bed106b31b875165256271107"
-  integrity sha512-k3NqigXWRzQZVBDS5D1U70A5E8Qk4Kh+Ha/x4M8Bt9pF0X05eggfnC9+63Usc9Q928hRUIpIhTQaXsZwZBl4Ew==
+  version "14.0.5"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.0.5.tgz#3d03acd3b3414cf67faf999aed11682ed121f22b"
+  integrity sha512-90hiq6/VqtQgX8Sp0EzeIsv3r+ellbGj4URKj5j30tLlZvRUpnAe9YbYnjl3pJM93GyXU0tghHhvXHq+5rnCKA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1928,10 +1928,15 @@ interpret@^1.2.0:
   resolved "https://registry.npmjs.org/interpret/-/interpret-1.2.0.tgz#d5061a6224be58e8083985f5014d844359576296"
   integrity sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
 
+io-ts-types@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.npmjs.org/io-ts-types/-/io-ts-types-0.5.6.tgz#4d9afdf7220d865c5bf74f30d9b2fcf1d51f11e3"
+  integrity sha512-E8mClvIN6sotGqICJQMyt8nMG9VkwejRYwOcKjAj5hndlWib9o8MRmP3HiyVK4Mn1lrpY6bB/B3LrMcV/HcWGQ==
+
 io-ts@^2.0.0:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/io-ts/-/io-ts-2.2.2.tgz#82b9ef96d95a3fb27a1abf5f29f59b07cc9b8cca"
-  integrity sha512-cXXIL4CR5/sWfKw/Ssc/cbZJGG13J4pJv9/RN6SlWJyh+foAPEUE0I9sWTX1kG24dvhiCM9fpO4F+2AsP+WzaQ==
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/io-ts/-/io-ts-2.2.3.tgz#6680383d0b84e0e61fa9f121a512474a9aa325c5"
+  integrity sha512-qiaqhzYVGENWvMnf4Dto/j8IDEiEWexNf4Z3b8tFEyE1GLLojnACUvUqkV2QF7vLC0cv/QKtq6ZOgKGConPYEA==
 
 irregular-plurals@^2.0.0:
   version "2.0.0"

@@ -6,12 +6,9 @@
         "strict": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        // We can't use these for now because TS doesn't support conditional
-        // disabling.
-        // "noUnusedLocals": true,
-        // "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
         "sourceMap": true,
-
         "outDir": "./target/",
         "declaration": true
     },
