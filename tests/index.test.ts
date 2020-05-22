@@ -1,6 +1,6 @@
+import test from 'ava';
 import * as iots from 'io-ts';
 import {withMessage} from 'io-ts-types/lib/withMessage';
-import * as test from 'tape';
 
 import {reporter} from '../src';
 
@@ -9,7 +9,6 @@ test('reports an empty array when the result doesn’t contain errors', (t) => {
   const result = PrimitiveType.decode('');
 
   t.deepEqual(reporter(result), []);
-  t.end();
 });
 
 test('formats a top-level primitve type correctly', (t) => {
@@ -17,7 +16,6 @@ test('formats a top-level primitve type correctly', (t) => {
   const result = PrimitiveType.decode(42);
 
   t.deepEqual(reporter(result), ['Expecting string but instead got: 42']);
-  t.end();
 });
 
 test('formats array items', (t) => {
@@ -27,7 +25,6 @@ test('formats array items', (t) => {
   t.deepEqual(reporter(result), [
     'Expecting Array<Array<number>> but instead got: {}'
   ]);
-  t.end();
 });
 
 test('formats nested array item mismatches correctly', (t) => {
@@ -37,7 +34,6 @@ test('formats nested array item mismatches correctly', (t) => {
   t.deepEqual(reporter(result), [
     'Expecting number at 0.0 but instead got: {}'
   ]);
-  t.end();
 });
 
 test('formats a complex type correctly', (t) => {
@@ -64,7 +60,6 @@ test('formats a complex type correctly', (t) => {
     'Expecting "Male" at children.0.gender.0 but instead got: "Whatever"',
     'Expecting "Female" at children.0.gender.1 but instead got: "Whatever"'
   ]);
-  t.end();
 });
 
 test('formats branded types correctly', (t) => {
@@ -90,6 +85,4 @@ test('formats branded types correctly', (t) => {
   t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
     "Expecting Positive but instead got: -1 (Don't be so negative!)"
   ]);
-
-  t.end();
 });

@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "compile": "rm -rf ./target/* && tsc",
     "test": "npm run lint && npm run test:unit",
-    "test:unit": "tape -r ts-node/register/transpile-only 'tests/**/*.test.ts' | tap-min",
+    "test:unit": "ava",
     "prepublishOnly": "npm run compile && npm run lint"
   },
   "files": [
@@ -22,9 +22,8 @@
   },
   "devDependencies": {
     "@types/tape": "^4.2.34",
+    "ava": "^3.8.2",
     "io-ts-types": "^0.5.6",
-    "tap-min": "^2.0.0",
-    "tape": "^4.13.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.5.3",
     "xo": "^0.30.0"
