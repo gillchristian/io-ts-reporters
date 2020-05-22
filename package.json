@@ -4,7 +4,8 @@
   "typings": "./target/src/index.d.ts",
   "version": "1.0.0",
   "scripts": {
-    "lint": "npm run typecheck && tslint --project tsconfig.json",
+    "lint": "npm run typecheck && npm run lint:only",
+    "lint:only": "xo",
     "typecheck": "tsc --noEmit",
     "compile": "rm -rf ./target/* && tsc",
     "test": "npm run lint && npm run test:unit",
@@ -12,7 +13,8 @@
     "prepublishOnly": "npm run compile && npm run lint"
   },
   "files": [
-    "target/src"
+    "target/src",
+    "src"
   ],
   "dependencies": {
     "fp-ts": "^2.0.2",
@@ -21,8 +23,9 @@
   "devDependencies": {
     "@types/tape": "^4.2.34",
     "ava": "^3.8.2",
+    "io-ts-types": "^0.5.6",
     "ts-node": "^8.6.2",
-    "tslint": "^5.8.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "xo": "^0.30.0"
   }
 }
