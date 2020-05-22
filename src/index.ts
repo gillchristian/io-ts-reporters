@@ -20,16 +20,20 @@ export const formatValidationError = (error: t.ValidationError) => {
         error.context as Array<t.ContextEntry>
     );
 
-    return pipe(maybeErrorContext, map(errorContext => {
-        const expectedType = errorContext.type.name;
-        return (
+    return pipe(
+        maybeErrorContext,
+        map((errorContext) => {
+            const expectedType = errorContext.type.name;
             // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
-            // tslint:disable-next-line:prefer-template
-            `Expecting ${expectedType}`
-                + (path === '' ? '' : ` at ${path}`)
-                + ` but instead got: ${jsToString(error.value)}.`
-        );
-    }))
+            return [
+                `Expecting ${expectedType}`,
+                path ? `at ${path}` : '',
+                'but instead got:',
+                jsToString(error.value),
+                error.message ? `(${error.message})` : ''
+            ].filter(Boolean).join(' ')
+        })
+    );
 };
 
 export const reporter = <T>(validation: t.Validation<T>) => (
