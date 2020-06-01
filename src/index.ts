@@ -45,7 +45,6 @@ const errorMessageSimple = (
     .filter(Boolean)
     .join(' ');
 
-// TODO: support error.message as errorMessageSimple does
 const errorMessageUnion = (
   expectedTypes: string[],
   path: string,
