@@ -1,24 +1,24 @@
 import test from 'ava';
 import * as iots from 'io-ts';
-import {withMessage} from 'io-ts-types/lib/withMessage';
+import { withMessage } from 'io-ts-types/lib/withMessage';
 
-import {reporter} from '../src';
+import { reporter } from '../src';
 
-test('reports an empty array when the result doesn’t contain errors', (t) => {
+test('reports an empty array when the result doesn’t contain errors', t => {
   const PrimitiveType = iots.string;
-  const result = PrimitiveType.decode('');
+  const result = PrimitiveType.decode('foo');
 
   t.deepEqual(reporter(result), []);
 });
 
-test('formats a top-level primitve type correctly', (t) => {
+test('formats a top-level primitve type correctly', t => {
   const PrimitiveType = iots.string;
   const result = PrimitiveType.decode(42);
 
   t.deepEqual(reporter(result), ['Expecting string but instead got: 42']);
 });
 
-test('formats array items', (t) => {
+test('formats array items', t => {
   const NumberGroups = iots.array(iots.array(iots.number));
   const result = NumberGroups.decode({});
 
@@ -27,7 +27,7 @@ test('formats array items', (t) => {
   ]);
 });
 
-test('formats nested array item mismatches correctly', (t) => {
+test('formats nested array item mismatches correctly', t => {
   const NumberGroups = iots.array(iots.array(iots.number));
   const result = NumberGroups.decode([[{}]]);
 
@@ -36,33 +36,7 @@ test('formats nested array item mismatches correctly', (t) => {
   ]);
 });
 
-test('formats a complex type correctly', (t) => {
-  const Gender = iots.union([iots.literal('Male'), iots.literal('Female')]);
-  const Person = iots.interface({
-    name: iots.string,
-    age: iots.number,
-    gender: Gender,
-    children: iots.array(
-      iots.interface({
-        gender: Gender
-      })
-    )
-  });
-  const result = Person.decode({
-    name: 'Giulio',
-    children: [{gender: 'Whatever'}]
-  });
-
-  t.deepEqual(reporter(result), [
-    'Expecting number at age but instead got: undefined',
-    'Expecting "Male" at gender.0 but instead got: undefined',
-    'Expecting "Female" at gender.1 but instead got: undefined',
-    'Expecting "Male" at children.0.gender.0 but instead got: "Whatever"',
-    'Expecting "Female" at children.0.gender.1 but instead got: "Whatever"'
-  ]);
-});
-
-test('formats branded types correctly', (t) => {
+test('formats branded types correctly', t => {
   interface PositiveBrand {
     readonly Positive: unique symbol;
   }
@@ -79,7 +53,7 @@ test('formats branded types correctly', (t) => {
 
   const PatronizingPositive = withMessage(
     Positive,
-    (_i) => `Don't be so negative!`
+    _i => `Don't be so negative!`
   );
 
   t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
