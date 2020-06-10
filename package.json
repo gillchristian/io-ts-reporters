@@ -2,7 +2,7 @@
   "name": "io-ts-reporters",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "lint": "npm run typecheck && npm run lint:only",
     "lint:only": "xo",
