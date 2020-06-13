@@ -21,7 +21,7 @@ yarn add io-ts-reporters
 
 ## Example
 
-See [the tests](./tests/index.ts).
+See [the tests](./tests/index.test.ts).
 
 ## Testing
 
