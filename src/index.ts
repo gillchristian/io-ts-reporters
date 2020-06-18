@@ -30,6 +30,10 @@ const getValidationContext = (validation: t.ValidationError) =>
   // https://github.com/gcanti/fp-ts/pull/544/files
   validation.context as t.ContextEntry[];
 
+export const TYPE_MAX_LEN = 160; // Two lines of 80-col text
+const truncateType = (type: string): string =>
+  type.length > TYPE_MAX_LEN ? `${type.slice(0, TYPE_MAX_LEN - 3)}...` : type;
+
 const errorMessageSimple = (
   expectedType: string,
   path: string,
@@ -37,7 +41,7 @@ const errorMessageSimple = (
 ) =>
   // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
   [
-    `Expecting ${expectedType}`,
+    `Expecting ${truncateType(expectedType)}`,
     path === '' ? '' : `at ${path}`,
     `but instead got: ${jsToString(error.value)}`,
     error.message ? `(${error.message})` : ''
@@ -53,7 +57,7 @@ const errorMessageUnion = (
   // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
   [
     'Expecting one of:\n',
-    expectedTypes.map(type => `    ${type}`).join('\n'),
+    expectedTypes.map(type => `    ${truncateType(type)}`).join('\n'),
     path === '' ? '\n' : `\nat ${path} `,
     `but instead got: ${jsToString(value)}`
   ]
