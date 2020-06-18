@@ -1,7 +1,7 @@
 import test from 'ava';
 import * as iots from 'io-ts';
 
-import { reporter } from '../src';
+import { reporter, TYPE_MAX_LEN } from '../src';
 
 test('formats keyof unions as "regular" types', t => {
   const WithKeyOf = iots.interface({
@@ -142,5 +142,29 @@ test('string union deeply nested', t => {
         'at children.1.gender but instead got: "Whatever"'
       ].join('\n')
     ]
+  );
+});
+
+test('truncates really long unions', t => {
+  const longUnion = iots.union([
+    iots.type({
+      '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890':
+        iots.string
+    }),
+    iots.type({
+      '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890':
+        iots.number
+    })
+  ]);
+  const messages = reporter(longUnion.decode(null));
+  t.is(messages.length, 1);
+  t.regex(
+    messages[0],
+    new RegExp(
+      `^Expecting one of:\n( *.{${
+        TYPE_MAX_LEN - 3
+      }}\\.{3}\n){2} *but instead got: null$`
+    ),
+    'Should be truncated'
   );
 });

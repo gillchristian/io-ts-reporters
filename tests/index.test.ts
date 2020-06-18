@@ -2,7 +2,7 @@ import test from 'ava';
 import * as iots from 'io-ts';
 import { withMessage } from 'io-ts-types/lib/withMessage';
 
-import { reporter } from '../src';
+import { reporter, TYPE_MAX_LEN } from '../src';
 
 test('reports an empty array when the result doesn’t contain errors', t => {
   const PrimitiveType = iots.string;
@@ -59,4 +59,20 @@ test('formats branded types correctly', t => {
   t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
     "Expecting Positive but instead got: -1 (Don't be so negative!)"
   ]);
+});
+
+test('truncates really long types', t => {
+  const longType = iots.type({
+    '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890':
+      iots.number
+  });
+  const messages = reporter(longType.decode(null));
+  t.is(messages.length, 1);
+  t.regex(
+    messages[0],
+    new RegExp(
+      `^Expecting .{${TYPE_MAX_LEN - 3}}\\.{3} but instead got: null$`
+    ),
+    'Should be truncated'
+  );
 });
