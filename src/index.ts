@@ -113,7 +113,7 @@ const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
     ? formatValidationErrorOfUnion(path, errors)
     : formatValidationCommonError(path, NEA.head(errors));
 
-// this is kept for backwards compatibility
+// Kept for backwards compatibility.
 export const formatValidationError = (error: t.ValidationError) =>
   formatValidationCommonError(keyPath(error.context), error);
 
