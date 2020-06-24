@@ -1,20 +1,20 @@
 import test from 'ava';
 import * as iots from 'io-ts';
 
-import { reporter } from '../src';
+import reporter from '../src';
 
 test('formats keyof unions as "regular" types', t => {
   const WithKeyOf = iots.interface({
     oneOf: iots.keyof({ a: null, b: null, c: null })
   });
 
-  t.deepEqual(reporter(WithKeyOf.decode({ oneOf: '' })), [
+  t.deepEqual(reporter.report(WithKeyOf.decode({ oneOf: '' })), [
     'Expecting "a" | "b" | "c" at oneOf but instead got: ""'
   ]);
 });
 
 test('union of string literals (no key)', t => {
-  t.deepEqual(reporter(Gender.decode('male')), [
+  t.deepEqual(reporter.report(Gender.decode('male')), [
     [
       'Expecting one of:',
       '    "Male"',
@@ -32,7 +32,7 @@ test('union of interfaces', t => {
   ]);
   const WithUnion = iots.interface({ data: UnionOfInterfaces });
 
-  t.deepEqual(reporter(WithUnion.decode({})), [
+  t.deepEqual(reporter.report(WithUnion.decode({})), [
     [
       'Expecting one of:',
       '    { key: string }',
@@ -41,7 +41,7 @@ test('union of interfaces', t => {
     ].join('\n')
   ]);
 
-  t.deepEqual(reporter(WithUnion.decode({ data: '' })), [
+  t.deepEqual(reporter.report(WithUnion.decode({ data: '' })), [
     [
       'Expecting one of:',
       '    { key: string }',
@@ -50,7 +50,7 @@ test('union of interfaces', t => {
     ].join('\n')
   ]);
 
-  t.deepEqual(reporter(WithUnion.decode({ data: {} })), [
+  t.deepEqual(reporter.report(WithUnion.decode({ data: {} })), [
     [
       'Expecting one of:',
       '    { key: string }',
@@ -59,7 +59,7 @@ test('union of interfaces', t => {
     ].join('\n')
   ]);
 
-  t.deepEqual(reporter(WithUnion.decode({ data: { code: '123' } })), [
+  t.deepEqual(reporter.report(WithUnion.decode({ data: { code: '123' } })), [
     [
       'Expecting one of:',
       '    { key: string }',
@@ -78,7 +78,7 @@ const Gender = iots.union([
 test('string union when provided undefined', t => {
   const Person = iots.interface({ name: iots.string, gender: Gender });
 
-  t.deepEqual(reporter(Person.decode({ name: 'Jane' })), [
+  t.deepEqual(reporter.report(Person.decode({ name: 'Jane' })), [
     [
       'Expecting one of:',
       '    "Male"',
@@ -92,17 +92,20 @@ test('string union when provided undefined', t => {
 test('string union when provided another string', t => {
   const Person = iots.interface({ name: iots.string, gender: Gender });
 
-  t.deepEqual(reporter(Person.decode({ name: 'Jane', gender: 'female' })), [
+  t.deepEqual(
+    reporter.report(Person.decode({ name: 'Jane', gender: 'female' })),
     [
-      'Expecting one of:',
-      '    "Male"',
-      '    "Female"',
-      '    "Other"',
-      'at gender but instead got: "female"'
-    ].join('\n')
-  ]);
+      [
+        'Expecting one of:',
+        '    "Male"',
+        '    "Female"',
+        '    "Other"',
+        'at gender but instead got: "female"'
+      ].join('\n')
+    ]
+  );
 
-  t.deepEqual(reporter(Person.decode({ name: 'Jane' })), [
+  t.deepEqual(reporter.report(Person.decode({ name: 'Jane' })), [
     [
       'Expecting one of:',
       '    "Male"',
@@ -120,7 +123,7 @@ test('string union deeply nested', t => {
   });
 
   t.deepEqual(
-    reporter(
+    reporter.report(
       Person.decode({
         name: 'Jane',
         children: [{}, { gender: 'Whatever' }]

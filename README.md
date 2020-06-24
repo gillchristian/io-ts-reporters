@@ -21,7 +21,36 @@ yarn add io-ts-reporters
 
 ## Example
 
-See [the tests](./tests/index.test.ts).
+```ts
+import * as t from 'io-ts';
+import reporter, { formatValidationErrors } from 'io-ts-reporters';
+import * as E from 'fp-ts/lib/Either';
+
+const User = t.interface({ name: t.string });
+
+// When decoding fails, the errors are reported
+reporter.report(User.decode({ nam: 'Jane' }));
+//=> ['Expecting string at name but instead got: undefined']
+
+// Nothing gets reported on success
+reporter.report(User.decode({ name: 'Jane' }));
+//=> []
+```
+
+If you want to report the errors on the `Left` only use `formatValidationErrors` instead.
+
+```ts
+import * as t from 'io-ts';
+import { formatValidationErrors } from 'io-ts-reporters';
+import * as E from 'fp-ts/lib/Either';
+import { pipe } from 'fp-ts/lib/pipeable';
+
+const User = t.interface({ name: t.string });
+
+pipe({ nam: 'Jane' }, User.decode, E.mapLeft(formatValidationErrors));
+```
+
+For more examples see [the tests](./tests/index.test.ts).
 
 ## Testing
 
@@ -31,3 +60,7 @@ yarn run test
 ```
 
 [io-ts]: https://github.com/gcanti/io-ts#error-reporters
+
+## Credits
+
+This library was created by [OliverJAsh](https://github.com/OliverJAsh).
