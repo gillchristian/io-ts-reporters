@@ -5,6 +5,7 @@ import * as O from 'fp-ts/lib/Option';
 import * as R from 'fp-ts/lib/Record';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as t from 'io-ts';
+import { Reporter } from 'io-ts/lib/Reporter';
 
 import { takeUntil } from './utils';
 
@@ -94,7 +95,7 @@ const formatValidationErrorOfUnion = (
     : O.none;
 };
 
-const formatValidationError = (path: string, error: t.ValidationError) =>
+const formatValidationCommonError = (path: string, error: t.ValidationError) =>
   pipe(
     error,
     getErrorFromCtx,
@@ -103,25 +104,41 @@ const formatValidationError = (path: string, error: t.ValidationError) =>
     )
   );
 
-const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
-  NEA.tail(errors).length > 0
-    ? formatValidationErrorOfUnion(path, errors)
-    : formatValidationError(path, NEA.head(errors));
-
 const groupByKey = NEA.groupBy((error: t.ValidationError) =>
   pipe(error.context, takeUntil(isUnionType), keyPath)
 );
 
+const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
+  NEA.tail(errors).length > 0
+    ? formatValidationErrorOfUnion(path, errors)
+    : formatValidationCommonError(path, NEA.head(errors));
+
+// this is kept for backwards compatibility
+export const formatValidationError = (error: t.ValidationError) =>
+  formatValidationCommonError(keyPath(error.context), error);
+
+export const formatValidationErrors = (errors: t.Errors) =>
+  pipe(
+    errors,
+    groupByKey,
+    R.mapWithIndex(format),
+    R.compact,
+    R.toArray,
+    A.map(([_key, error]) => error)
+  );
+
 export const reporter = <T>(validation: t.Validation<T>) =>
   pipe(
     validation,
-    E.mapLeft(groupByKey),
-    E.mapLeft(R.mapWithIndex(format)),
-    E.mapLeft(R.compact),
-    E.mapLeft(R.toArray),
-    E.mapLeft(A.map(([_key, error]) => error)),
+    E.mapLeft(formatValidationErrors),
     E.fold(
       errors => errors,
       () => []
     )
   );
+
+const prettyReporter: Reporter<string[]> = {
+  report: reporter
+};
+
+export default prettyReporter;
