@@ -1,3 +1,21 @@
+/**
+ * An [io-ts Reporter](https://gcanti.github.io/io-ts/modules/Reporter.ts.html#reporter-interface).
+ *
+ * @example
+ *
+ * import * as t from 'io-ts';
+ * import Reporter from 'io-ts-reporters';
+ *
+ * const User = t.interface({ name: t.string });
+ *
+ * assert.deepEqual(
+ *   Reporter.report(User.decode({ nam: 'Jane' })),
+ *   ['Expecting string at name but instead got: undefined'],
+ * )
+ * assert.deepEqual( Reporter.report(User.decode({ name: 'Jane' })), [])
+ *
+ * @since 1.2.0
+ */
 import * as A from 'fp-ts/lib/Array';
 import * as E from 'fp-ts/lib/Either';
 import * as NEA from 'fp-ts/lib/NonEmptyArray';
@@ -113,10 +131,33 @@ const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
     ? formatValidationErrorOfUnion(path, errors)
     : formatValidationCommonError(path, NEA.head(errors));
 
-// Kept for backwards compatibility.
+/**
+ * Format a single validation error.
+ *
+ * @category formatters
+ * @since 1.0.0
+ */
 export const formatValidationError = (error: t.ValidationError) =>
   formatValidationCommonError(keyPath(error.context), error);
 
+/**
+ * Format validation errors (`t.Errors`).
+ *
+ * @example
+ * import * as E from 'fp-ts/lib/Either'
+ * import * as t from 'io-ts'
+ * import { formatValidationErrors } from 'io-ts-reporters'
+ *
+ * const result = t.string.decode(123)
+ *
+ * assert.deepEqual(
+ *   E.mapLeft(formatValidationErrors)(result),
+ *   E.left(['Expecting string but instead got: 123'])
+ * )
+ *
+ * @category formatters
+ * @since 1.2.0
+ */
 export const formatValidationErrors = (errors: t.Errors) =>
   pipe(
     errors,
@@ -127,6 +168,13 @@ export const formatValidationErrors = (errors: t.Errors) =>
     A.map(([_key, error]) => error)
   );
 
+/**
+ * Deprecated, use the default export instead.
+ *
+ * @category deprecated
+ * @deprecated
+ * @since 1.0.0
+ */
 export const reporter = <T>(validation: t.Validation<T>) =>
   pipe(
     validation,
@@ -137,8 +185,5 @@ export const reporter = <T>(validation: t.Validation<T>) =>
     )
   );
 
-const prettyReporter: Reporter<string[]> = {
-  report: reporter
-};
-
+const prettyReporter: Reporter<string[]> = { report: reporter };
 export default prettyReporter;

@@ -1,3 +1,8 @@
+---
+title: Home
+nav_order: 1
+---
+
 # io-ts-reporters
 
 [Error reporters](https://github.com/gcanti/io-ts#error-reporters) for [io-ts](https://github.com/gcanti/io-ts).
@@ -17,12 +22,6 @@ Expecting one of:
     ${...}
     ${unionTypeN}
 at ${path} but instead got: ${actualValue}
-```
-
-## Installation
-
-```bash
-yarn add io-ts-reporters
 ```
 
 ## Example
@@ -58,22 +57,6 @@ pipe({ nam: 'Jane' }, User.decode, E.mapLeft(formatValidationErrors));
 ```
 
 For more examples see [the tests](./tests/index.test.ts).
-
-## TypeScript compatibility
-
-| io-ts-reporters version | required typescript version |
-| ----------------------- | --------------------------- |
-| 1.0.0                   | 3.5+                        |
-| <= 0.0.21               | 2.7+                        |
-
-## Testing
-
-```bash
-yarn
-yarn run test
-```
-
-[io-ts]: https://github.com/gcanti/io-ts#error-reporters
 
 ## Credits
 
