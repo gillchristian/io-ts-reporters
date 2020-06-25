@@ -1,6 +1,6 @@
 {
   "name": "io-ts-reporters",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Formatting of io-ts validation errors",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.ts",
@@ -34,11 +34,11 @@
     "io-ts": "^2.0.0"
   },
   "devDependencies": {
-    "fp-ts": "^2.0.2",
-    "io-ts": "^2.0.0",
     "@types/tape": "^4.2.34",
     "ava": "^3.8.2",
     "docs-ts": "^0.5.1",
+    "fp-ts": "^2.0.2",
+    "io-ts": "^2.0.0",
     "io-ts-types": "^0.5.6",
     "ts-node": "^8.6.2",
     "typescript": "^3.5.3",
