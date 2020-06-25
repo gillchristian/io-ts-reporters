@@ -1,8 +1,10 @@
 # io-ts-reporters
 
-[Error reporters](https://github.com/gcanti/io-ts#error-reporters) for [io-ts](https://github.com/gcanti/io-ts).
+[Error reporters](https://github.com/gcanti/io-ts#error-reporters) for
+[io-ts](https://github.com/gcanti/io-ts).
 
-Currently this package only includes one reporter. The output is an array of strings in the format of:
+Currently this package only includes one reporter. The output is an array of
+strings in the format of:
 
 ```
 Expecting ${expectedType} at ${path} but instead got: ${expectedType}
@@ -30,7 +32,6 @@ yarn add io-ts-reporters
 ```ts
 import * as t from 'io-ts';
 import reporter from 'io-ts-reporters';
-import * as E from 'fp-ts/lib/Either';
 
 const User = t.interface({ name: t.string });
 
@@ -54,7 +55,9 @@ import { pipe } from 'fp-ts/lib/pipeable';
 
 const User = t.interface({ name: t.string });
 
-pipe({ nam: 'Jane' }, User.decode, E.mapLeft(formatValidationErrors));
+const result = User.decode({ nam: 'Jane' }); // Either<t.Errors, User>
+
+E.mapLeft(formatValidationErrors)(result); // Either<string[], User>
 ```
 
 For more examples see [the tests](./tests/index.test.ts).
