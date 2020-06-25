@@ -1,5 +1,11 @@
+/**
+ * @since 1.1.0
+ */
 import { Predicate } from 'fp-ts/lib/function';
 
+/**
+ * @since 1.1.0
+ */
 /* eslint-disable @typescript-eslint/array-type */
 export const takeUntil = <A = unknown>(predicate: Predicate<A>) => (
   as: ReadonlyArray<A>
