@@ -31,6 +31,8 @@ Added in v1.2.0
 - [formatters](#formatters)
   - [formatValidationError](#formatvalidationerror)
   - [formatValidationErrors](#formatvalidationerrors)
+- [internals](#internals)
+  - [TYPE_MAX_LEN](#type_max_len)
 
 ---
 
@@ -85,3 +87,15 @@ assert.deepEqual(E.mapLeft(formatValidationErrors)(result), E.left(['Expecting s
 ```
 
 Added in v1.2.0
+
+# internals
+
+## TYPE_MAX_LEN
+
+**Signature**
+
+```ts
+export declare const TYPE_MAX_LEN: 160
+```
+
+Added in v1.2.1
