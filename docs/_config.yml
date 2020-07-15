@@ -1,0 +1,12 @@
+remote_theme: fluffyemily/just-the-docs
+
+search_enabled: false
+
+# Aux links for the upper right navigation
+aux_links:
+  "Docs":
+    - "//gillchristian.github.io/io-ts-reporters/"
+  "API Reference":
+    - "//gillchristian.github.io/io-ts-reporters/modules/"
+  'GitHub':
+    - 'https://github.com/gillchristian/io-ts-reporters'

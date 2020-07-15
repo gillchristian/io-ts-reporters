@@ -1,3 +1,21 @@
+/**
+ * An [io-ts Reporter](https://gcanti.github.io/io-ts/modules/Reporter.ts.html#reporter-interface).
+ *
+ * @example
+ *
+ * import * as t from 'io-ts';
+ * import Reporter from 'io-ts-reporters';
+ *
+ * const User = t.interface({ name: t.string });
+ *
+ * assert.deepEqual(
+ *   Reporter.report(User.decode({ nam: 'Jane' })),
+ *   ['Expecting string at name but instead got: undefined'],
+ * )
+ * assert.deepEqual( Reporter.report(User.decode({ name: 'Jane' })), [])
+ *
+ * @since 1.2.0
+ */
 import * as A from 'fp-ts/lib/Array';
 import * as E from 'fp-ts/lib/Either';
 import * as NEA from 'fp-ts/lib/NonEmptyArray';
@@ -5,6 +23,7 @@ import * as O from 'fp-ts/lib/Option';
 import * as R from 'fp-ts/lib/Record';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as t from 'io-ts';
+import { Reporter } from 'io-ts/lib/Reporter';
 
 import { takeUntil } from './utils';
 
@@ -98,7 +117,7 @@ const formatValidationErrorOfUnion = (
     : O.none;
 };
 
-const formatValidationError = (path: string, error: t.ValidationError) =>
+const formatValidationCommonError = (path: string, error: t.ValidationError) =>
   pipe(
     error,
     getErrorFromCtx,
@@ -107,25 +126,68 @@ const formatValidationError = (path: string, error: t.ValidationError) =>
     )
   );
 
-const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
-  NEA.tail(errors).length > 0
-    ? formatValidationErrorOfUnion(path, errors)
-    : formatValidationError(path, NEA.head(errors));
-
 const groupByKey = NEA.groupBy((error: t.ValidationError) =>
   pipe(error.context, takeUntil(isUnionType), keyPath)
 );
 
+const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
+  NEA.tail(errors).length > 0
+    ? formatValidationErrorOfUnion(path, errors)
+    : formatValidationCommonError(path, NEA.head(errors));
+
+/**
+ * Format a single validation error.
+ *
+ * @category formatters
+ * @since 1.0.0
+ */
+export const formatValidationError = (error: t.ValidationError) =>
+  formatValidationCommonError(keyPath(error.context), error);
+
+/**
+ * Format validation errors (`t.Errors`).
+ *
+ * @example
+ * import * as E from 'fp-ts/lib/Either'
+ * import * as t from 'io-ts'
+ * import { formatValidationErrors } from 'io-ts-reporters'
+ *
+ * const result = t.string.decode(123)
+ *
+ * assert.deepEqual(
+ *   E.mapLeft(formatValidationErrors)(result),
+ *   E.left(['Expecting string but instead got: 123'])
+ * )
+ *
+ * @category formatters
+ * @since 1.2.0
+ */
+export const formatValidationErrors = (errors: t.Errors) =>
+  pipe(
+    errors,
+    groupByKey,
+    R.mapWithIndex(format),
+    R.compact,
+    R.toArray,
+    A.map(([_key, error]) => error)
+  );
+
+/**
+ * Deprecated, use the default export instead.
+ *
+ * @category deprecated
+ * @deprecated
+ * @since 1.0.0
+ */
 export const reporter = <T>(validation: t.Validation<T>) =>
   pipe(
     validation,
-    E.mapLeft(groupByKey),
-    E.mapLeft(R.mapWithIndex(format)),
-    E.mapLeft(R.compact),
-    E.mapLeft(R.toArray),
-    E.mapLeft(A.map(([_key, error]) => error)),
+    E.mapLeft(formatValidationErrors),
     E.fold(
       errors => errors,
       () => []
     )
   );
+
+const prettyReporter: Reporter<string[]> = { report: reporter };
+export default prettyReporter;

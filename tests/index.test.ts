@@ -2,27 +2,29 @@ import test from 'ava';
 import * as iots from 'io-ts';
 import { withMessage } from 'io-ts-types/lib/withMessage';
 
-import { reporter, TYPE_MAX_LEN } from '../src';
+import Reporter, { TYPE_MAX_LEN } from '../src';
 
 test('reports an empty array when the result doesn’t contain errors', t => {
   const PrimitiveType = iots.string;
   const result = PrimitiveType.decode('foo');
 
-  t.deepEqual(reporter(result), []);
+  t.deepEqual(Reporter.report(result), []);
 });
 
 test('formats a top-level primitve type correctly', t => {
   const PrimitiveType = iots.string;
   const result = PrimitiveType.decode(42);
 
-  t.deepEqual(reporter(result), ['Expecting string but instead got: 42']);
+  t.deepEqual(Reporter.report(result), [
+    'Expecting string but instead got: 42'
+  ]);
 });
 
 test('formats array items', t => {
   const NumberGroups = iots.array(iots.array(iots.number));
   const result = NumberGroups.decode({});
 
-  t.deepEqual(reporter(result), [
+  t.deepEqual(Reporter.report(result), [
     'Expecting Array<Array<number>> but instead got: {}'
   ]);
 });
@@ -31,7 +33,7 @@ test('formats nested array item mismatches correctly', t => {
   const NumberGroups = iots.array(iots.array(iots.number));
   const result = NumberGroups.decode([[{}]]);
 
-  t.deepEqual(reporter(result), [
+  t.deepEqual(Reporter.report(result), [
     'Expecting number at 0.0 but instead got: {}'
   ]);
 });
@@ -47,7 +49,7 @@ test('formats branded types correctly', t => {
     'Positive'
   );
 
-  t.deepEqual(reporter(Positive.decode(-1)), [
+  t.deepEqual(Reporter.report(Positive.decode(-1)), [
     'Expecting Positive but instead got: -1'
   ]);
 
@@ -56,7 +58,7 @@ test('formats branded types correctly', t => {
     _i => `Don't be so negative!`
   );
 
-  t.deepEqual(reporter(PatronizingPositive.decode(-1)), [
+  t.deepEqual(Reporter.report(PatronizingPositive.decode(-1)), [
     "Expecting Positive but instead got: -1 (Don't be so negative!)"
   ]);
 });
@@ -66,7 +68,7 @@ test('truncates really long types', t => {
     '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890':
       iots.number
   });
-  const messages = reporter(longType.decode(null));
+  const messages = Reporter.report(longType.decode(null));
   t.is(messages.length, 1);
   t.regex(
     messages[0],
