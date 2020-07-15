@@ -49,6 +49,10 @@ const getValidationContext = (validation: t.ValidationError) =>
   // https://github.com/gcanti/fp-ts/pull/544/files
   validation.context as t.ContextEntry[];
 
+/**
+ * @category internals
+ * @since 1.2.1
+ */
 export const TYPE_MAX_LEN = 160; // Two lines of 80-col text
 const truncateType = (type: string): string =>
   type.length > TYPE_MAX_LEN ? `${type.slice(0, TYPE_MAX_LEN - 3)}...` : type;
