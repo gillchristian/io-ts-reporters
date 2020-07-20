@@ -199,6 +199,10 @@ export const formatValidationErrors = (
     A.map(([_key, error]) => error)
   );
 
+/**
+ * @category formatters
+ * @since 1.2.2
+ */
 export interface ReporterOptions {
   truncateLongTypes?: boolean;
 }
