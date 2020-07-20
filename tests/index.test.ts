@@ -55,7 +55,7 @@ test('formats branded types correctly', t => {
 
   const PatronizingPositive = withMessage(
     Positive,
-    _i => `Don't be so negative!`
+    _i => "Don't be so negative!"
   );
 
   t.deepEqual(Reporter.report(PatronizingPositive.decode(-1)), [
@@ -76,5 +76,22 @@ test('truncates really long types', t => {
       `^Expecting .{${TYPE_MAX_LEN - 3}}\\.{3} but instead got: null$`
     ),
     'Should be truncated'
+  );
+});
+
+test('doesn’t truncate really long types when truncating is disabled', t => {
+  const longTypeName =
+    '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
+  const longType = iots.type({
+    [longTypeName]: iots.number
+  });
+  const messages = Reporter.report(longType.decode(null), {
+    truncateLongTypes: false
+  });
+  t.is(messages.length, 1);
+  t.is(
+    messages[0],
+    `Expecting { ${longTypeName}: number } but instead got: null`,
+    'Should not be truncated'
   );
 });
