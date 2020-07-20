@@ -54,17 +54,25 @@ const getValidationContext = (validation: t.ValidationError) =>
  * @since 1.2.1
  */
 export const TYPE_MAX_LEN = 160; // Two lines of 80-col text
-const truncateType = (type: string): string =>
-  type.length > TYPE_MAX_LEN ? `${type.slice(0, TYPE_MAX_LEN - 3)}...` : type;
+const truncateType = (type: string, options: ReporterOptions = {}): string => {
+  const { truncateLongTypes = true } = options;
+
+  if (truncateLongTypes && type.length > TYPE_MAX_LEN) {
+    return `${type.slice(0, TYPE_MAX_LEN - 3)}...`;
+  }
+
+  return type;
+};
 
 const errorMessageSimple = (
   expectedType: string,
   path: string,
-  error: t.ValidationError
+  error: t.ValidationError,
+  options?: ReporterOptions
 ) =>
   // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
   [
-    `Expecting ${truncateType(expectedType)}`,
+    `Expecting ${truncateType(expectedType, options)}`,
     path === '' ? '' : `at ${path}`,
     `but instead got: ${jsToString(error.value)}`,
     error.message ? `(${error.message})` : ''
@@ -75,12 +83,13 @@ const errorMessageSimple = (
 const errorMessageUnion = (
   expectedTypes: string[],
   path: string,
-  value: unknown
+  value: unknown,
+  options?: ReporterOptions
 ) =>
   // https://github.com/elm-lang/core/blob/18c9e84e975ed22649888bfad15d1efdb0128ab2/src/Native/Json.js#L199
   [
     'Expecting one of:\n',
-    expectedTypes.map(type => `    ${truncateType(type)}`).join('\n'),
+    expectedTypes.map(type => `    ${truncateType(type, options)}`).join('\n'),
     path === '' ? '\n' : `\nat ${path} `,
     `but instead got: ${jsToString(value)}`
   ]
@@ -98,7 +107,8 @@ const findExpectedType = (ctx: t.ContextEntry[]) =>
 
 const formatValidationErrorOfUnion = (
   path: string,
-  errors: NEA.NonEmptyArray<t.ValidationError>
+  errors: NEA.NonEmptyArray<t.ValidationError>,
+  options?: ReporterOptions
 ) => {
   const expectedTypes = pipe(
     errors,
@@ -117,16 +127,20 @@ const formatValidationErrorOfUnion = (
   const expected = expectedTypes.map(({ type }) => type.name);
 
   return expected.length > 0
-    ? O.some(errorMessageUnion(expected, path, value))
+    ? O.some(errorMessageUnion(expected, path, value, options))
     : O.none;
 };
 
-const formatValidationCommonError = (path: string, error: t.ValidationError) =>
+const formatValidationCommonError = (
+  path: string,
+  error: t.ValidationError,
+  options?: ReporterOptions
+) =>
   pipe(
     error,
     getErrorFromCtx,
     O.map(errorContext =>
-      errorMessageSimple(errorContext.type.name, path, error)
+      errorMessageSimple(errorContext.type.name, path, error, options)
     )
   );
 
@@ -134,10 +148,14 @@ const groupByKey = NEA.groupBy((error: t.ValidationError) =>
   pipe(error.context, takeUntil(isUnionType), keyPath)
 );
 
-const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
+const format = (
+  path: string,
+  errors: NEA.NonEmptyArray<t.ValidationError>,
+  options?: ReporterOptions
+) =>
   NEA.tail(errors).length > 0
-    ? formatValidationErrorOfUnion(path, errors)
-    : formatValidationCommonError(path, NEA.head(errors));
+    ? formatValidationErrorOfUnion(path, errors, options)
+    : formatValidationCommonError(path, NEA.head(errors), options);
 
 /**
  * Format a single validation error.
@@ -145,8 +163,10 @@ const format = (path: string, errors: NEA.NonEmptyArray<t.ValidationError>) =>
  * @category formatters
  * @since 1.0.0
  */
-export const formatValidationError = (error: t.ValidationError) =>
-  formatValidationCommonError(keyPath(error.context), error);
+export const formatValidationError = (
+  error: t.ValidationError,
+  options?: ReporterOptions
+) => formatValidationCommonError(keyPath(error.context), error, options);
 
 /**
  * Format validation errors (`t.Errors`).
@@ -166,15 +186,22 @@ export const formatValidationError = (error: t.ValidationError) =>
  * @category formatters
  * @since 1.2.0
  */
-export const formatValidationErrors = (errors: t.Errors) =>
+export const formatValidationErrors = (
+  errors: t.Errors,
+  options?: ReporterOptions
+) =>
   pipe(
     errors,
     groupByKey,
-    R.mapWithIndex(format),
+    R.mapWithIndex((path, errors) => format(path, errors, options)),
     R.compact,
     R.toArray,
     A.map(([_key, error]) => error)
   );
+
+export interface ReporterOptions {
+  truncateLongTypes?: boolean;
+}
 
 /**
  * Deprecated, use the default export instead.
@@ -183,15 +210,25 @@ export const formatValidationErrors = (errors: t.Errors) =>
  * @deprecated
  * @since 1.0.0
  */
-export const reporter = <T>(validation: t.Validation<T>) =>
+export const reporter = <T>(
+  validation: t.Validation<T>,
+  options?: ReporterOptions
+) =>
   pipe(
     validation,
-    E.mapLeft(formatValidationErrors),
+    E.mapLeft(errors => formatValidationErrors(errors, options)),
     E.fold(
       errors => errors,
       () => []
     )
   );
 
-const prettyReporter: Reporter<string[]> = { report: reporter };
+interface PrettyReporter extends Reporter<string[]> {
+  report: <T>(
+    validation: t.Validation<T>,
+    options?: ReporterOptions
+  ) => string[];
+}
+
+const prettyReporter: PrettyReporter = { report: reporter };
 export default prettyReporter;
