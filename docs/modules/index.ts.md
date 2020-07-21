@@ -29,8 +29,11 @@ Added in v1.2.0
 - [deprecated](#deprecated)
   - [~~reporter~~](#reporter)
 - [formatters](#formatters)
+  - [ReporterOptions (interface)](#reporteroptions-interface)
   - [formatValidationError](#formatvalidationerror)
   - [formatValidationErrors](#formatvalidationerrors)
+- [internals](#internals)
+  - [TYPE_MAX_LEN](#type_max_len)
 
 ---
 
@@ -43,12 +46,24 @@ Deprecated, use the default export instead.
 **Signature**
 
 ```ts
-export declare const reporter: <T>(validation: E.Either<t.Errors, T>) => any[]
+export declare const reporter: <T>(validation: E.Either<t.Errors, T>, options?: ReporterOptions) => any[]
 ```
 
 Added in v1.0.0
 
 # formatters
+
+## ReporterOptions (interface)
+
+**Signature**
+
+```ts
+export interface ReporterOptions {
+  truncateLongTypes?: boolean
+}
+```
+
+Added in v1.2.2
 
 ## formatValidationError
 
@@ -57,7 +72,7 @@ Format a single validation error.
 **Signature**
 
 ```ts
-export declare const formatValidationError: (error: t.ValidationError) => O.Option<string>
+export declare const formatValidationError: (error: t.ValidationError, options?: ReporterOptions) => O.Option<string>
 ```
 
 Added in v1.0.0
@@ -69,7 +84,7 @@ Format validation errors (`t.Errors`).
 **Signature**
 
 ```ts
-export declare const formatValidationErrors: (errors: t.Errors) => string[]
+export declare const formatValidationErrors: (errors: t.Errors, options?: ReporterOptions) => string[]
 ```
 
 **Example**
@@ -85,3 +100,15 @@ assert.deepEqual(E.mapLeft(formatValidationErrors)(result), E.left(['Expecting s
 ```
 
 Added in v1.2.0
+
+# internals
+
+## TYPE_MAX_LEN
+
+**Signature**
+
+```ts
+export declare const TYPE_MAX_LEN: 160
+```
+
+Added in v1.2.1
