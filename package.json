@@ -30,14 +30,14 @@
   "homepage": "https://github.com/gillchristian/io-ts-reporters",
   "dependencies": {},
   "peerDependencies": {
-    "fp-ts": "^2.0.2",
+    "fp-ts": "^2.8.0",
     "io-ts": "^2.0.0"
   },
   "devDependencies": {
     "@types/tape": "^4.2.34",
     "ava": "^3.8.2",
     "docs-ts": "^0.5.1",
-    "fp-ts": "^2.0.2",
+    "fp-ts": "^2.8.0",
     "io-ts": "^2.0.0",
     "io-ts-types": "^0.5.6",
     "ts-node": "^8.6.2",
