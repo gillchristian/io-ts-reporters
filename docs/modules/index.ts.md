@@ -90,7 +90,7 @@ export declare const formatValidationErrors: (errors: t.Errors, options?: Report
 **Example**
 
 ```ts
-import * as E from 'fp-ts/lib/Either'
+import * as E from 'fp-ts/Either'
 import * as t from 'io-ts'
 import { formatValidationErrors } from 'io-ts-reporters'
 

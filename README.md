@@ -50,8 +50,8 @@ To only format the validation errors in case the validation failed (ie.
 ```ts
 import * as t from 'io-ts';
 import { formatValidationErrors } from 'io-ts-reporters';
-import * as E from 'fp-ts/lib/Either';
-import { pipe } from 'fp-ts/lib/pipeable';
+import * as E from 'fp-ts/Either';
+import { pipe } from 'fp-ts/pipeable';
 
 const User = t.interface({ name: t.string });
 

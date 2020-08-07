@@ -16,12 +16,12 @@
  *
  * @since 1.2.0
  */
-import * as A from 'fp-ts/lib/Array';
-import * as E from 'fp-ts/lib/Either';
-import * as NEA from 'fp-ts/lib/NonEmptyArray';
-import * as O from 'fp-ts/lib/Option';
-import * as R from 'fp-ts/lib/Record';
-import { pipe } from 'fp-ts/lib/pipeable';
+import * as A from 'fp-ts/Array';
+import * as E from 'fp-ts/Either';
+import * as NEA from 'fp-ts/NonEmptyArray';
+import * as O from 'fp-ts/Option';
+import * as R from 'fp-ts/Record';
+import { pipe } from 'fp-ts/pipeable';
 import * as t from 'io-ts';
 import { Reporter } from 'io-ts/lib/Reporter';
 
@@ -172,7 +172,7 @@ export const formatValidationError = (
  * Format validation errors (`t.Errors`).
  *
  * @example
- * import * as E from 'fp-ts/lib/Either'
+ * import * as E from 'fp-ts/Either'
  * import * as t from 'io-ts'
  * import { formatValidationErrors } from 'io-ts-reporters'
  *
