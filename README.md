@@ -3,8 +3,8 @@
 [Error reporters](https://github.com/gcanti/io-ts#error-reporters) for
 [io-ts](https://github.com/gcanti/io-ts).
 
-Currently this package only includes one reporter. The output is an array of strings in the format
-of:
+Currently this package only includes one reporter. The output is an array of
+strings in the format of:
 
 ```
 Expecting ${expectedType} at ${path} but instead got: ${expectedType}
@@ -44,8 +44,8 @@ reporter.report(User.decode({name: 'Jane'}))
 //=> []
 ```
 
-To only format the validation errors in case the validation failed (ie. `mapLeft`) use
-`formatValidationErrors` instead.
+To only format the validation errors in case the validation failed (ie.
+`mapLeft`) use `formatValidationErrors` instead.
 
 ```ts
 import * as t from 'io-ts'

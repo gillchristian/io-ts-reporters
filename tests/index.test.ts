@@ -22,14 +22,18 @@ test('formats array items', (t) => {
   const NumberGroups = iots.array(iots.array(iots.number))
   const result = NumberGroups.decode({})
 
-  t.deepEqual(Reporter.report(result), ['Expecting Array<Array<number>> but instead got: {}'])
+  t.deepEqual(Reporter.report(result), [
+    'Expecting Array<Array<number>> but instead got: {}',
+  ])
 })
 
 test('formats nested array item mismatches correctly', (t) => {
   const NumberGroups = iots.array(iots.array(iots.number))
   const result = NumberGroups.decode([[{}]])
 
-  t.deepEqual(Reporter.report(result), ['Expecting number at 0.0 but instead got: {}'])
+  t.deepEqual(Reporter.report(result), [
+    'Expecting number at 0.0 but instead got: {}',
+  ])
 })
 
 test('formats branded types correctly', (t) => {
@@ -43,9 +47,14 @@ test('formats branded types correctly', (t) => {
     'Positive',
   )
 
-  t.deepEqual(Reporter.report(Positive.decode(-1)), ['Expecting Positive but instead got: -1'])
+  t.deepEqual(Reporter.report(Positive.decode(-1)), [
+    'Expecting Positive but instead got: -1',
+  ])
 
-  const PatronizingPositive = withMessage(Positive, (_i) => "Don't be so negative!")
+  const PatronizingPositive = withMessage(
+    Positive,
+    (_i) => "Don't be so negative!",
+  )
 
   t.deepEqual(Reporter.report(PatronizingPositive.decode(-1)), [
     "Expecting Positive but instead got: -1 (Don't be so negative!)",
@@ -61,7 +70,9 @@ test('truncates really long types', (t) => {
   t.is(messages.length, 1)
   t.regex(
     messages[0],
-    new RegExp(`^Expecting .{${TYPE_MAX_LEN - 3}}\\.{3} but instead got: null$`),
+    new RegExp(
+      `^Expecting .{${TYPE_MAX_LEN - 3}}\\.{3} but instead got: null$`,
+    ),
     'Should be truncated',
   )
 })
