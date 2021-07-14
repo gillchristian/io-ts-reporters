@@ -1,19 +1,16 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "noImplicitAny": true,
-        "strict": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "outDir": "./target/",
-        "declaration": true
-    },
-    "include": [
-        "./src/*.ts",
-        "./tests/*.ts"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "outDir": "./target/",
+    "declaration": true
+  },
+  "include": ["./src/*.ts", "./tests/*.ts"]
 }

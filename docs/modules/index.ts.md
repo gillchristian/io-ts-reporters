@@ -46,7 +46,7 @@ Deprecated, use the default export instead.
 **Signature**
 
 ```ts
-export declare const reporter: <T>(validation: E.Either<t.Errors, T>, options?: ReporterOptions) => any[]
+export declare const reporter: <T>(validation: E.Either<t.Errors, T>, options?: ReporterOptions | undefined) => string[]
 ```
 
 Added in v1.0.0
@@ -72,7 +72,10 @@ Format a single validation error.
 **Signature**
 
 ```ts
-export declare const formatValidationError: (error: t.ValidationError, options?: ReporterOptions) => O.Option<string>
+export declare const formatValidationError: (
+  error: t.ValidationError,
+  options?: ReporterOptions | undefined
+) => O.Option<string>
 ```
 
 Added in v1.0.0
@@ -84,7 +87,7 @@ Format validation errors (`t.Errors`).
 **Signature**
 
 ```ts
-export declare const formatValidationErrors: (errors: t.Errors, options?: ReporterOptions) => string[]
+export declare const formatValidationErrors: (errors: t.Errors, options?: ReporterOptions | undefined) => string[]
 ```
 
 **Example**
