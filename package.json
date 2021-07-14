@@ -1,6 +1,6 @@
 {
   "name": "io-ts-reporters",
-  "version": "1.2.2",
+  "version": "2.0.0-rc1",
   "description": "Formatting of io-ts validation errors",
   "main": "./target/src/index.js",
   "typings": "./target/src/index.d.ts",
