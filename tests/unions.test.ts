@@ -69,7 +69,11 @@ test('union of interfaces', (t) => {
   ])
 })
 
-const Gender = iots.union([iots.literal('Male'), iots.literal('Female'), iots.literal('Other')])
+const Gender = iots.union([
+  iots.literal('Male'),
+  iots.literal('Female'),
+  iots.literal('Other'),
+])
 
 test('string union when provided undefined', (t) => {
   const Person = iots.interface({name: iots.string, gender: Gender})
@@ -88,15 +92,18 @@ test('string union when provided undefined', (t) => {
 test('string union when provided another string', (t) => {
   const Person = iots.interface({name: iots.string, gender: Gender})
 
-  t.deepEqual(Reporter.report(Person.decode({name: 'Jane', gender: 'female'})), [
+  t.deepEqual(
+    Reporter.report(Person.decode({name: 'Jane', gender: 'female'})),
     [
-      'Expecting one of:',
-      '    "Male"',
-      '    "Female"',
-      '    "Other"',
-      'at gender but instead got: "female"',
-    ].join('\n'),
-  ])
+      [
+        'Expecting one of:',
+        '    "Male"',
+        '    "Female"',
+        '    "Other"',
+        'at gender but instead got: "female"',
+      ].join('\n'),
+    ],
+  )
 
   t.deepEqual(Reporter.report(Person.decode({name: 'Jane'})), [
     [
@@ -156,7 +163,11 @@ test('truncates really long unions', (t) => {
   t.is(messages.length, 1)
   t.regex(
     messages[0],
-    new RegExp(`^Expecting one of:\n( *.{${TYPE_MAX_LEN - 3}}\\.{3}\n){2} *but instead got: null$`),
+    new RegExp(
+      `^Expecting one of:\n( *.{${
+        TYPE_MAX_LEN - 3
+      }}\\.{3}\n){2} *but instead got: null$`,
+    ),
     'Should be truncated',
   )
 })

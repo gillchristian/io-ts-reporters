@@ -6,7 +6,8 @@ parent: Modules
 
 ## index overview
 
-An [io-ts Reporter](https://gcanti.github.io/io-ts/modules/Reporter.ts.html#reporter-interface).
+An
+[io-ts Reporter](https://gcanti.github.io/io-ts/modules/Reporter.ts.html#reporter-interface).
 
 **Example**
 
@@ -14,10 +15,12 @@ An [io-ts Reporter](https://gcanti.github.io/io-ts/modules/Reporter.ts.html#repo
 import * as t from 'io-ts'
 import Reporter from 'io-ts-reporters'
 
-const User = t.interface({ name: t.string })
+const User = t.interface({name: t.string})
 
-assert.deepEqual(Reporter.report(User.decode({ nam: 'Jane' })), ['Expecting string at name but instead got: undefined'])
-assert.deepEqual(Reporter.report(User.decode({ name: 'Jane' })), [])
+assert.deepEqual(Reporter.report(User.decode({nam: 'Jane'})), [
+  'Expecting string at name but instead got: undefined',
+])
+assert.deepEqual(Reporter.report(User.decode({name: 'Jane'})), [])
 ```
 
 Added in v1.2.0
@@ -46,7 +49,10 @@ Deprecated, use the default export instead.
 **Signature**
 
 ```ts
-export declare const reporter: <T>(validation: E.Either<t.Errors, T>, options?: ReporterOptions | undefined) => string[]
+export declare const reporter: <T>(
+  validation: E.Either<t.Errors, T>,
+  options?: ReporterOptions | undefined,
+) => string[]
 ```
 
 Added in v1.0.0
@@ -74,7 +80,7 @@ Format a single validation error.
 ```ts
 export declare const formatValidationError: (
   error: t.ValidationError,
-  options?: ReporterOptions | undefined
+  options?: ReporterOptions | undefined,
 ) => O.Option<string>
 ```
 
@@ -87,7 +93,10 @@ Format validation errors (`t.Errors`).
 **Signature**
 
 ```ts
-export declare const formatValidationErrors: (errors: t.Errors, options?: ReporterOptions | undefined) => string[]
+export declare const formatValidationErrors: (
+  errors: t.Errors,
+  options?: ReporterOptions | undefined,
+) => string[]
 ```
 
 **Example**
@@ -95,11 +104,14 @@ export declare const formatValidationErrors: (errors: t.Errors, options?: Report
 ```ts
 import * as E from 'fp-ts/Either'
 import * as t from 'io-ts'
-import { formatValidationErrors } from 'io-ts-reporters'
+import {formatValidationErrors} from 'io-ts-reporters'
 
 const result = t.string.decode(123)
 
-assert.deepEqual(E.mapLeft(formatValidationErrors)(result), E.left(['Expecting string but instead got: 123']))
+assert.deepEqual(
+  E.mapLeft(formatValidationErrors)(result),
+  E.left(['Expecting string but instead got: 123']),
+)
 ```
 
 Added in v1.2.0

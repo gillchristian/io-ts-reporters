@@ -24,7 +24,9 @@ Added in v1.1.0
 **Signature**
 
 ```ts
-export declare const takeUntil: <A = unknown>(predicate: Predicate<A>) => (as: readonly A[]) => readonly A[]
+export declare const takeUntil: <A = unknown>(
+  predicate: Predicate<A>,
+) => (as: readonly A[]) => readonly A[]
 ```
 
 Added in v1.1.0
