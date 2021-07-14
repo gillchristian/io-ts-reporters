@@ -1,6 +1,6 @@
-remote_theme: fluffyemily/just-the-docs
+remote_theme: pmarsceill/just-the-docs
 
-search_enabled: false
+search_enabled: true
 
 # Aux links for the upper right navigation
 aux_links:
