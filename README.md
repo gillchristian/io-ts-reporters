@@ -7,7 +7,7 @@ Currently this package only includes one reporter. The output is an array of
 strings in the format of:
 
 ```
-Expecting ${expectedType} at ${path} but instead got: ${expectedType}
+Expecting ${expectedType} at ${path} but instead got: ${actualValue}
 ```
 
 And for union types:
