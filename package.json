@@ -30,7 +30,9 @@
     "url": "https://github.com/gillchristian/io-ts-reporters/issues"
   },
   "homepage": "https://github.com/gillchristian/io-ts-reporters",
-  "dependencies": {},
+  "dependencies": {
+    "@scarf/scarf": "^1.1.1"
+  },
   "peerDependencies": {
     "fp-ts": "^2.10.5",
     "io-ts": "^2.2.16"

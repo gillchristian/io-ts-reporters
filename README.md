@@ -3,6 +3,8 @@
 [Error reporters](https://github.com/gcanti/io-ts#error-reporters) for
 [io-ts](https://github.com/gcanti/io-ts).
 
+![scarf-downloads](https://scarf.sh/package/installs-badge/376fab85-f2aa-4e85-9225-3be51d9534fc)
+
 Currently this package only includes one reporter. The output is an array of
 strings in the format of:
 
